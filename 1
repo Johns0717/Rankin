@@ -1,0 +1,28 @@
+/*
+ * Author:   Rankin Sun
+ * Date:    1/15/2021
+ * Purpose:With this in mind, write a program that prompts the user for the price of an article (before taxes) 
+ and that prints the price of the article including provincial sales tax (PST) at 7% and goods and services tax (GST) at 5%.
+ You may use code in previous questions as a model.
+ *
+ */
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <math.h>
+
+#define PST 0.07
+#define GST 0.05
+
+int main(void) {
+	double initialprice;
+	double finalprice;
+
+	printf( "Enter initial price (dollars) \n" );
+	scanf( "%lf", &initialprice );
+
+	finalprice = (initialprice)* (1 + PST + GST);
+	printf("finalprice: %f dollars", finalprice);
+
+	return 0;
+}
