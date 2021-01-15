@@ -1,0 +1,33 @@
+/*Author:Rankin Sun
+  Date:1/15/2021
+  Purpose:Write a program that prompts the user for the length, width and height of a solid steel rectangular bar (in metres). 
+  The program must then compute the mass of the bar in kilograms assuming that the density of the steel is 7850 kg per cubic metre. 
+*/
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <math.h>
+#define density 7850
+
+int main(void) {
+	double length;
+	double width;
+	double height;
+	double mass;
+
+	printf("Enter length\n");
+	scanf("%lf", &length);
+
+	printf("Enter width\n");
+	scanf("%lf", &width);
+
+	printf("Enter height\n");
+	scanf("%lf", &height);
+
+	mass = (length * height * width * density);
+	
+	printf("mass: %lf kg\n", mass);
+
+	return 0;
+
+}
