@@ -1,0 +1,40 @@
+/*
+ * Author:
+ * Date:
+ * Purpose: Compute the position of a particle of mass oscillating
+ *          on a spring with no external forces at the given time.
+ *          The user is prompted for the initial position, initial
+ *          velocity, and a time. We'll assume a mass of 2 units
+ *          and a spring constant of 0.5.
+ */
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+#define MASS      2.5
+#define STIFFNESS 0.7
+
+int main(void) {
+	double initialposition;
+	double initialspeed;
+	double time;
+	double finalposition;
+	double naturalfrequency;
+
+	printf("Enter the initial position (m) \n,");
+	scanf("%lf", &initialposition);
+	printf("Enter the initial speed (m) \n,");
+	scanf("%lf", &initialspeed); 
+	printf("Enter the time (m) \n,");
+	scanf("%lf", &time);
+
+	naturalfrequency = sqrt(STIFFNESS/MASS);
+
+	finalposition = initialposition * cos(naturalfrequency*time) + initialspeed / naturalfrequency * sin(naturalfrequency*time);
+
+	printf("finalposition %f\n", finalposition);
+
+	return 0;
+}
