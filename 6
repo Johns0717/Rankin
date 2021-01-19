@@ -1,0 +1,28 @@
+/*
+ * Author:
+ * Date:
+ * Purpose: Compute the volume of a sphere. The user is prompted for the
+ *          radius (in cm.), and the computed answer (in cubic cm.) is
+ *          displayed on the screen.
+ */
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+#define PI acos(-1.0)
+
+int main(void) {
+	double radius;
+	double volume;
+
+	printf("Enter the radius of the sphere (cm) \n,");
+	scanf("%lf", &radius);
+
+	volume = PI * pow(radius, 3)*4/3;
+
+		printf("volume：%f cubic cm\n", volume);
+
+	return 0;
+}
