@@ -1,0 +1,24 @@
+/*
+* Author: Rankin Sun
+* Student Number: 53418265
+* Lab Section: L2O
+* Date: 1/20/2021
+* Purpose: Prompts the user for his/her name and prints
+* a welcome message on the screen
+*/
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <math.h>
+
+#define MAX_NAME_LENGTH 100
+
+int main(void) {
+	char name[MAX_NAME_LENGTH];
+
+	printf("Please enter your first name:\n");
+	scanf("%s", &name);
+	printf("\nHello, %s, welcome to APSC 160!\n", name);
+
+	return 0;
+}
