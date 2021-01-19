@@ -1,0 +1,25 @@
+/* Author:   Ein Freund
+ * Date:     July 20, 2009
+ * Purpose:  Prompt the user for a weight in kilograms, and convert it to pounds.
+ */
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <math.h>
+
+#define LBS_PER_KG 2.2
+
+int main(void) {
+
+	double weightKgs;
+	double weightLbs;
+
+	printf("Please enter a weight in kilograms: ");
+	scanf("%lf", &weightKgs);
+
+	weightLbs = LBS_PER_KG * weightKgs;
+
+	printf("Corresponding weight in lbs: %f\n", weightLbs);
+
+	return 0;
+}
