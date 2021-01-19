@@ -1,0 +1,35 @@
+/*
+   Author:           Rankin Sun
+   Lab Section:      L1O
+   Today's Date:     1/20/2021
+   Purpose:          This program finds the coordinates of the end of a robot arm.
+*/
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <math.h>
+
+int main( void ) {
+	double AB;
+	double BC;
+	double angle1;
+	double angle2;
+	double Cx;
+	double Cy;
+
+	printf("Enter the length of AB in metres:\n");
+	scanf("%lf", &AB);
+	printf("Enter the length of BC in metres:\n");
+	scanf("%lf", &BC);
+	printf("Enter the angle of theta1 measure counterclockwise from x-axis in radians:\n");
+	scanf("%lf", &angle1);
+	printf("Enter the angle of theta2 measure counterclockwise from x-axis in radians:\n");
+	scanf("%lf", &angle2);
+
+	Cx = AB * cos(angle1) + BC * cos(angle2);
+	Cy = AB * sin(angle1) + BC * sin(angle2);
+
+	printf("The end of the robot arm is positioned at (%f, %f)\n", Cx, Cy);
+
+	return 0;
+}
