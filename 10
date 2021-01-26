@@ -1,0 +1,38 @@
+/* Author:Rankin Sun
+ * Date:1/27/2021
+ * Purpose:
+ */
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_TEMP     300.0
+#define MAX_PRESSURE 150.0
+
+
+int main(void) {
+	double T;
+	double P;
+
+	printf("Enter air temperature of the machanical device (in degrees Celsius):");
+	scanf("%lf", &T);
+	printf("Enter pressure of the machanical device (PSI):");
+	scanf("%lf", &P);
+
+	if (P < 0.0) {
+		printf("Error:input not valid\n");
+	}
+	else if (T >MAX_TEMP || T < 5.0 || P>MAX_PRESSURE) {
+		printf("Machine is not operating under normal conditions!\n");
+	}
+	else if (T > 250.0 && P > 100.0) {
+		printf("Machine is not operating under normal conditions!\n");
+	}
+	else {
+		printf("Machine is operating under normal conditions!\n");
+	}
+	
+	system("PAUSE");
+	return 0;
+}
