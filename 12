@@ -1,0 +1,41 @@
+/*
+ * Author: Rankin Sun
+ * Date: 1/29/2021
+ * Purpose:
+ */
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+
+#define SENTINEL -1
+
+int main(void) {
+	double one;
+	double count;
+	double nextval;
+
+	one = 0;
+	count= 0;
+
+	printf("Enter series of non-negative values, terminated by -1:\n");
+	scanf("%lf", &nextval);
+
+	while (nextval != -1) {
+		if (nextval > one) {
+			one = nextval;
+		}
+		count++;
+		printf("enter next value");
+		scanf("%lf", &nextval);
+	}
+	
+	if (count == 0) {
+		printf("Error: no data!");
+	}
+	else {
+		printf("Largest value entered:%lf", one);
+	}
+
+	return 0;
+}
