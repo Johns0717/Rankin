@@ -1,0 +1,35 @@
+/* Author: Rankin Sun
+ * Date: 2/5/2021
+ * Purpose:  Prompt the user for a threshold value, and print the number of
+ *           entries in INPUTFILE that are greater than the given threshold value.
+ */
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+
+#define INPUTFILE "weights.dat"
+
+int main(void) {
+	FILE*   inFile;
+	double  nextVal;
+	double  thresholdVal;
+	int     countAbove = 0;
+
+	inFile = fopen(INPUTFILE, "r");
+
+	if (inFile == NULL)
+		printf("Error opening input file - program terminating...\n");
+	else {
+		printf("Enter the thresholdVal:\n");
+		scanf("%lf", &thresholdVal);
+
+		while (fscanf(inFile, "%lf", &nextVal) == 1) {
+			if (nextVal > thresholdVal)
+				countAbove++;
+		}
+		printf("%d\n", countAbove);
+		fclose(inFile);
+	}
+	return 0;
+}
