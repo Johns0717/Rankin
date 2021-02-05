@@ -1,0 +1,38 @@
+/* Author: Rankin Sun
+ * Date: 2/5/2021
+ * Purpose:   reads the file and reports the average temperature at midnight
+			  over the year to one decimal place..
+ */
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#define inputfile "yvrTemperature08.dat"
+
+int main(void) {
+	FILE* inFile;
+	double noontemp;
+	double maxtemp=0;
+	double mintemp=0;
+
+	inFile = fopen(inputfile, "r");
+
+	if (inFile == NULL) {
+		printf("Error opening input file - program terminating...\n");
+	}
+	else {
+		while (fscanf(inFile, "%*d %*lf %*lf %lf %*lf", &noontemp) == 1) {
+			if (noontemp >= maxtemp) {
+				maxtemp = noontemp;
+			}
+			else if (noontemp <= mintemp) {
+				mintemp = noontemp;
+			}
+		}
+		printf("The maximum and minimum temperature is %.1lf,%.1lf",maxtemp,mintemp);
+
+		fclose(inFile);
+	}
+
+	return 0;
+}
