@@ -1,0 +1,42 @@
+/*
+* Name: Rankin Sun
+* Student Number: 53418265
+* Lab Section: L2O
+* Email Address: johnsrz@student.ubc.ca
+*/
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void) {
+	double priceperlitre;
+	double numberofgas;
+	double totalprice;
+
+	printf("Please Enter the price of a litre of gasoline in cents: ");
+	scanf("%lf", &priceperlitre);
+	printf("Please Enter number of litres of gas you wants to purchase: ");
+	scanf("%lf", &numberofgas);
+
+	if (priceperlitre < 0 || numberofgas < 0) {
+		printf("Error");
+	}
+	else {
+		totalprice = priceperlitre/100 * numberofgas;
+		printf("Total price in dollar is:%.2lf\n", totalprice);
+
+		if (priceperlitre / 100 < 1.234) {
+			printf("You got a good deal.\n");
+		}
+		else if (priceperlitre / 100 > 1.726) {
+			printf("You paid too much\n");
+		}
+		else {
+			printf("You paid a reasonable price.\n");
+		}
+	}
+	system("PAUSE");
+	return 0;
+
+}
