@@ -1,0 +1,49 @@
+/*
+* Name:Rankin Sun
+* Date: 5/2/2021
+*/
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+
+#define GST 0.05
+#define max1 350000
+#define max2 450000
+#define rebaterate 0.36
+#define maxrebate 5000
+
+
+int main(void) {
+	int price;
+	double rebate;
+	double tax;
+	double payable;
+
+	printf("Enter the purchase price");
+	scanf("%d", &price);
+
+	if (price < 0) {
+		printf("The house price cannot be negative.");
+	}
+	else {
+		tax = price * GST;
+
+		if (price <= max1) {
+			rebate = tax * rebaterate;
+			if (rebate > maxrebate) {
+				rebate = maxrebate;
+			}
+		}
+		else if (price <= max2) {
+			rebate = maxrebate * (max2 - price) / 100000;
+		}
+		else {
+			rebate = 0.0;
+		}
+
+		payable = tax - rebate;
+		printf("The payable is %.2f\n", payable);
+	}
+	return 0;
+}
