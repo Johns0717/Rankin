@@ -1,0 +1,53 @@
+/*
+ * Author: Rankin Sun
+ * Date: 6/2/2021
+ * Purpose:/ Prompt a user for a positive integer N. Then,
+ *           write to the file "sineTable.dat" a table of
+ *           sine values for the input values:
+ *           PI/N, 2*PI/N, ..., N*PI/N.
+ */
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+#define INPUTFILE "input.pgm"
+#define OUTPUTFILE "output.pgm"
+
+int main(void) {
+	FILE *inFile;
+	FILE *outFile;
+	int width, height, white, inPixel, outPixel;
+	int x;
+	int y;
+
+	inFile = fopen(INPUTFILE, "r");
+	outFile = fopen(OUTPUTFILE, "w");
+
+	fscanf(inFile, "%d %d %d \n", &width, &height, &white);
+	fprintf(outFile, "%d %d %d \n", width, height, white);
+
+	if (inFile == NULL || outFile == NULL) {
+		printf("Error opening input file - program terminating...\n");
+	}
+	else {
+		x = 0;
+		while (x < height) {
+			y = 0;
+			while (y < width) {
+				fscanf(inFile, "%d", &inPixel);
+				outPixel = (double)white * sqrt((double)inPixel / white);
+				fprintf(outFile, "%d ", outPixel);
+				y++;
+			}
+			fprintf(outFile, "\n");
+			x++;
+		}
+	}
+	fclose(inFile);
+	fclose(outFile);
+
+	system("PAUSE");
+	return 0;
+}
