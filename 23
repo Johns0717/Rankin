@@ -1,0 +1,56 @@
+/*
+ * TO DO 1: Add Author and Date
+ * Author: Rankin Sun
+ * Date: 2/9/2021
+ * Purpose: saves in the file investtable.txt a table with investment
+ * results after each year.
+ */
+ /* TO DO 2: Add extra line breaks to separate blocks of code, as per style guidelines */
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+#define FILENAME "investment.txt"
+#define NUM_YEARS 40
+
+int main(void) {
+	double start_value;
+	double interest_rate;
+	int year;
+	double interest_value;
+	double end_value;
+
+	printf("Enter the initial investment value in dollars:\n");
+	scanf("%lf", &start_value);
+	printf("Enter the annual interest rate as a percentage:\n");
+	scanf("%lf", &interest_rate);
+	FILE *file_out;
+	file_out = fopen(FILENAME, "w");
+
+	if (file_out == NULL) {
+		printf("ERROR: File could not be opened for writing.\n");
+	}
+	else {
+		/* TO DO 3: Save header to file */
+		fprintf(file_out, "Year Start Value  Interest   End Value\n");
+		fprintf(file_out, "---- ----------- --------- -----------\n");
+		year = 1;
+		
+		while (year <= NUM_YEARS) {
+			interest_value = floor(start_value * interest_rate) / 100;
+			end_value = start_value + interest_value;
+			/* TO DO 4: Save values to file */
+			fprintf(file_out, "%4d %11.2lf %9.2lf %11.2lf", year, start_value, interest_value, end_value);
+			fprintf(file_out, "\n");
+			start_value = end_value;
+			year++;
+		}
+		
+		fclose(file_out);
+		printf("File saved successfully.\n");
+	}
+	
+	return 0;
+}
