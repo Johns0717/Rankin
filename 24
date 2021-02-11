@@ -1,0 +1,17 @@
+/*
+ * Author: Rankin Sun
+ * Date:    11/2/2021
+ * Purpose: prints a row of stars
+ */
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+void drawRow(int length) {
+	int star = 1;
+
+	while (star <= length) {
+		printf("*");
+		star++;
+	}
+}
