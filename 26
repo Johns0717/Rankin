@@ -1,0 +1,26 @@
+/*
+* Author: Rankin Sun
+* Date: 11 / 2 / 2021
+* Purpose : The factorial of a non - negative integer
+*/
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+
+int factorial(int n) {
+	int sum = 1;
+	int x = 1;
+
+	if (n == 0) {
+		sum = 1;
+	}
+	else {
+		while (x <= n) {
+			sum = sum * x;
+			x++;
+		}
+	}
+
+	return sum;
+}
