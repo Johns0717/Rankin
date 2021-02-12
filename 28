@@ -1,0 +1,39 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void) {
+	int num;
+	int forward;
+	int backward;
+
+	printf("Please enter integer: \n");
+	scanf("%d", &num);
+
+	while (num < 1 || num>14) {
+		printf("Error\n");
+
+		printf("Please enter integer: \n");
+		scanf("%d", &num);
+	}
+	printf("You entered: %d\n", num);
+
+	forward = 1;
+	backward = num;
+
+	while (forward <= num) {
+		printf("%3d",forward);
+		forward++;
+	}
+
+	printf("\n");
+
+	while (backward >= 1) {
+		printf("%3d", backward);
+		backward--;
+	}
+
+	printf("\n");
+
+	return 0;
+}
