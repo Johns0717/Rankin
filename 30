@@ -1,0 +1,38 @@
+/*
+* Name: Rankin Sun
+* Date：13/2/2021
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+
+void printChars(int length, char symbol);
+
+int main(void) {
+	int size;
+	int row = 1;
+
+	printf("Enter size of square: \n");
+	scanf("%d", &size);
+
+	while (row <= size) {
+
+		printChars(size, '*');
+		printChars(size,'.');
+
+		printf("\n");
+		row++;
+	}
+
+	system("PAUSE");
+	return 0;
+}
+
+void printChars(int length, char symbol) {
+	int number = 1;
+
+	while (number <= size) {
+		printf("%c", symbol);
+		number++;
+	}
+}
