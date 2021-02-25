@@ -1,0 +1,20 @@
+void drawTri(int size, int x, int y);
+
+void fancyPic(int size)
+{
+	int y_axis = 1; /*side 1 triangle*/
+	int x_axis = 0;
+	int numberoftriangle = size;
+
+	while (y_axis <= size) {
+
+		while (x_axis < numberoftriangle) {
+			drawTri(1, x_axis, y_axis);
+			x_axis++;
+		}
+
+		x_axis = 0;
+		y_axis++;
+		numberoftriangle--;
+	}
+}
