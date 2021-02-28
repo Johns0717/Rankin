@@ -1,0 +1,82 @@
+#define CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MINROWS 1
+#define MAXROWS 12
+
+int getInputInRange(int, int);
+void printRow(int);
+int n_choose_r(int, int);
+int factorial(int);
+
+int main(void)
+{
+	int row = 0;
+	int numRows;
+
+	numRows = getInputInRange(MINROWS, MAXROWS);
+
+	while (row < numRows)
+	{
+		printRow(row);
+		printf("\n");
+
+		row++;
+	}
+
+	return 0;
+}
+
+int getInputInRange(int min, int max)
+{
+	int userInput;
+
+	printf("Please enter integer value "
+		"between %d and %d.\n",
+		min, max);
+	scanf("%d", &userInput);
+
+	while (userInput < min || userInput > max)
+	{
+		printf("Error: input not in expected range!\n\n");
+		printf("Please enter integer value "
+			"between %d and %d.\n",
+			min, max);
+		scanf("%d", &userInput);
+	}
+
+	return userInput;
+}
+
+
+void printRow(int rowNum)
+{
+	int position = 0;
+	int coefficient;
+
+	while (position <= rowNum)
+	{
+		coefficient = n_choose_r(rowNum, position);
+		printf("%4i", coefficient);
+		position++;
+	}
+}
+
+int n_choose_r(int n, int r)
+{
+	return factorial(n) / (factorial(r) * factorial(n - r));
+}
+
+int factorial(int num)
+{
+	int fact = 1;
+
+	while (num > 1)
+	{
+		fact *= num;
+		num--;
+	}
+
+	return fact;
+}
