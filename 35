@@ -1,0 +1,27 @@
+/*
+ * Author:   APSC 160 Instructor
+ * Purpose:  Print the largest value found in an array
+ */
+
+#define CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+
+#define SIZE 10
+
+int main(void)
+{
+	int data[] = { -5, -7, 3, 1, 0, 23, -14, 35, 12, 16 };
+	int index = 0;
+	int maxVal = data[0];
+
+	while (index < SIZE) {
+		if (data[index] > maxVal) {
+			maxVal = data[index];
+		}
+		index++;
+	}
+
+	printf("Maximum data in the array is %d", maxVal);
+	return 0;
+}
