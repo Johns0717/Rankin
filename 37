@@ -1,0 +1,46 @@
+/*
+ * Author: Rankin Sun
+ * Purpose: Draw a histogram of positive integers entered by a user in
+ *          the range 1 to 100, inclusive.  The user terminates input
+ *          with -1.
+ */
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+
+void printRow(int, char);
+
+int main(void)
+{
+	int nextval;
+	int index = 0;
+	int data[10] = { 0 };
+
+	printf("Please enter a series of positive integers between 1 and 100, terminated with -1: \n");
+	scanf("%d", &nextval);
+
+	while (nextval != -1) {
+		data[(nextval - 1) / 10]++;
+		printf("enter next value: \n");
+		scanf("%d", &nextval);
+	}
+
+	while (index < 10) {
+		printf("%3d - %3d: ", index * 10 + 1, (index + 1) * 10);
+		printRow(data[index], '*');
+		printf("\n");
+		index++;
+	}
+
+	return 0;
+}
+
+void printRow(int numberchars, char printchar) {
+	int index = 0;
+
+	while (index < numberchars) {
+		printf("%c", printchar);
+		index++;
+	}
+}
