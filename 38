@@ -1,0 +1,22 @@
+/*
+ *  Author:    APSC 160 Instructor
+ *  Function:  numOfEvenEntries
+ *  Purpose:   Determine how many even elements are found in an array.
+ *  Param:     array  - the array
+ *             size   - size of the array
+ *  Return:    the number of entries which are even
+ */
+
+int numOfEvenEntries(int array[], int size) {
+	int index;
+	int count = 0;
+	int num;
+	/* Complete your program */
+	for (index = 0; index < size; index++) {
+		num = array[index];
+		if (num % 2 == 0) {
+			count++;
+		}
+	}
+	return count;
+}
