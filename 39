@@ -1,0 +1,32 @@
+int search(int array[], int size, int toFind);
+
+/*
+ *  Function:  compare_arrays
+ *  Purpose:   Compute the number of integers that are common to two arrays
+ *             (i.e., that are found in both arrays).  Another way of saying
+ *             this is:  return the size of the intersection of two arrays.
+ *
+ *  Param:     array1  - first array
+ *             size1   - size of first array
+ *             array2  - second array
+ *             size2   - size of second array
+ *  Return:    the number of integers which are found in BOTH arrays
+ */
+
+int  compare_arrays(int array1[], int size1, int array2[], int size2) {
+
+	/* Complete the program */
+	int num1;
+	int num2;
+	int index;
+	int samenum = 0;
+
+	for (index = 0; index < size1; index++) {
+		num1 = array1[index];
+		num2 = search(array2, size2, num1);
+		if (num2 != -1) {
+			samenum++;
+		}
+	}
+	return samenum;
+}
