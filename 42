@@ -1,0 +1,40 @@
+#include <math.h>
+
+double mean(double data[], int n)
+{
+	double sum = 0.0;
+
+	for (int index = 0; index < n; index++)
+		sum += data[index];
+
+	return sum / n;
+}
+
+double var(double data[], int n)
+{
+	double avg = mean(data, n);
+	double sumSqDiff = 0.0;
+
+	for (int index = 0; index < n; index++)
+		sumSqDiff += pow(data[index] - avg, 2.0);
+
+	return sumSqDiff / (n - 1);
+}
+
+double sdev(double data[], int n)
+{
+	return sqrt(var(data, n));
+}
+
+double minimum(double data[], int n)
+{
+	/* Assume minimum is first entry in the array (at first) */
+	double minValue = data[0];
+
+	/* Loop through the rest to find the actual minimum */
+	for (int index = 1; index < n; index++)
+		if (data[index] < minValue)
+			minValue = data[index];
+
+	return minValue;
+}
