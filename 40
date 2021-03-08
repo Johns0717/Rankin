@@ -1,0 +1,12 @@
+void copyNonNeg(int data[], int size, int nonNeg[]) {
+	int index;
+
+	for (index = 0; index < size; index++) {
+		if (data[index] >= 0) {
+			nonNeg[index] = data[index];
+		}
+		else {
+			nonNeg[index] = 0;
+		}
+	}
+}
