@@ -1,0 +1,19 @@
+double getMinimum(double data[], int size);
+double getMaximum(double data[], int size);
+
+/*
+ * Function:  normalizeArray
+ * Purpose:   Create a copy of an array, but with normalized values.
+ * Param:     data       - the original (unnormalized) array
+ * Param:     size       - the size of the array
+ * Param:     normalized - the array containing the normalized values
+ */
+void normalizeArray(double data[], int size, double normalized[]) {
+
+	/* Complete the program */
+	int index;
+	
+	for (index = 0; index < size; index++) {
+		normalized[index] = (data[index] - getMinimum(data, size)) / (getMaximum(data, size) - getMinimum(data, size));
+	}
+}
