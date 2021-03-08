@@ -1,0 +1,36 @@
+/*
+* Purpose：Write a function geoMean that returns as a 
+* double-precision number the geometric mean of an array.
+*/
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+double geoMean(double data[], int size);
+
+int main(void) {
+	double data[] = { 1.0,3.0,6.0,8.0,200.0,31.0,31.0 };
+	int size = 7;
+	double output;
+
+	output = geoMean(data, size);
+	printf("The output is: ", output);
+
+	return 0;
+}
+
+double geoMean(double data[], int size) {
+	double product = 1.0;
+	double GM;
+	int index;
+
+	for (index = 0; index < size; index++) {
+		product = product * data[index];
+	}
+	
+	GM = pow(product, 1.0 / size);
+
+	return GM;
+}
