@@ -1,0 +1,54 @@
+#define BLUE 0
+#define GREEN 1
+#define RED 2
+
+#define MAXVAL 255
+void negative(int R[], int G[], int B[], int imgSize)
+{
+	for (int index = 0; index < imgSize; index++)
+	{
+		R[index] = MAXVAL - R[index];
+		G[index] = MAXVAL - G[index];
+		B[index] = MAXVAL - B[index];
+	}
+}
+
+
+void filterByChannel(int R[], int G[], int B[], int imgSize, int filterColour)
+{
+	for (int index = 0; index < imgSize; index++)
+	{
+		if (filterColour == RED)
+			G[index] = B[index] = 0;
+		else if (filterColour == GREEN)
+			R[index] = B[index] = 0;
+		else
+			R[index] = G[index] = 0;
+	}
+}
+
+
+int getMax(int num1, int num2, int num3);
+void rgb2grey(int R[], int G[], int B[], int imgSize)
+{
+	for (int index = 0; index < imgSize; index++)
+	{
+		int max = getMax(R[index], G[index], B[index]);
+		R[index] = G[index] = B[index] = max;
+	}
+}
+
+
+int getMax(int num1, int num2, int num3)
+{
+	int max;
+
+	if (num1 >= num2 && num1 >= num3)
+		max = num1;
+	else if (num2 >= num3)
+		max = num2;
+	else
+		max = num3;
+
+	return max;
+}
