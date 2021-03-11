@@ -1,0 +1,28 @@
+/*
+ * Function: addMatrix
+ * Purpose:  Add two 2D arrays.
+ *
+ * Param: dataA   - the first 2D array
+ *                  with numRows rows and NUMCOLS columns
+ * Param: dataB   - the second 2D array
+ *                  with numRows rows and NUMCOLS columns
+ * Param: result  - the resulting 2D array
+ *                  with numRows rows and NUMCOLS columns
+ * Param: numRows - the number of rows in all arrays.
+ *
+ * Returns: the sum of the first two arrays, as the third parameter;
+ *          nothing is returned via a return statement
+ */
+void addMatrix(int dataA[][NUMCOLS], int dataB[][NUMCOLS], int result[][NUMCOLS], int numRows){
+	int column;
+	int row;
+	int storage;
+
+	for (row = 0; row < numRows; row++) {
+		for (column = 0; column < NUMCOLS; column++) {
+			storage = dataA[row][column] + dataB[row][column];
+			result[row][column] = storage;
+		}
+	}
+
+}
