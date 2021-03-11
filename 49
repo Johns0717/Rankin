@@ -1,0 +1,12 @@
+void transpose(int data[][NUMCOLS], int dataT[][NUMROWS]){
+	int row;
+	int column;
+	int storage;
+
+	for (row = 0; row < NUMROWS; row++) {
+		for (column = 0; column < NUMCOLS; column++) {
+			storage = data[row][column];
+			dataT[column][row] = storage;
+		}
+	}
+}
