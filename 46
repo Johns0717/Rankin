@@ -1,0 +1,59 @@
+/*
+ * Author: Joe Gear
+ * Date: March 11, 2009
+ * Purpose:  Computes the weekly power output at a power plant
+ *           from daily power outputs stored in a 2D array.
+ */
+
+#include <stdio.h>
+
+#define NWEEKS 4
+#define NDAYS 7
+#define NCOLS NDAYS
+
+void sumRows( double data[][ NCOLS ], int nRows, double rowSum[] );
+double sumRow( double data[][ NCOLS ], int row );
+void printReport( double weeklyOutput[], int nWeeks );
+
+int main( void ) {
+    double powerOutput[][ NDAYS ] 
+            = { { 5.2, 3.7, 4.2, 5.1, 6.0, 5.8, 4.8 },
+                  { 4.9, 3.8, 4.0, 5.1, 5.9, 6.1, 5.2 },
+                    { 4.7, 3.7, 3.9, 4.8, 5.5, 6.0, 4.3 }, 
+                      { 4.8, 4.1, 4.4, 4.5, 5.7, 5.9, 5.1 } };  
+    double weeklyOutput[ NWEEKS ];
+
+    sumRows( powerOutput, NWEEKS, weeklyOutput );
+    printReport( weeklyOutput, NWEEKS );
+
+    return 0;
+}
+
+
+void sumRows( double data[][ NCOLS ], int nRows, double rowSum[] ) {
+    int row;
+
+    for( row = 0; row < nRows; row++ ) {
+        rowSum[ row ] = sumRow( data, row );
+    }
+}
+
+double sumRow( double data[][ NCOLS ], int row ) {
+    int col;
+    double sum = 0.0;
+
+    for( col = 0; col < NCOLS; col++ ) {
+        sum += data[ row ][ col ];
+    }
+
+    return sum;
+}
+
+void printReport( double weeklyOutput[], int nWeeks ) {
+    int week;
+
+    for( week = 0; week < nWeeks; week++ ) {
+        printf( "Total power output for week %d is %5.2f\n", 
+                 week + 1, weeklyOutput[ week ] );
+    }
+}
