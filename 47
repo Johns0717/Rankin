@@ -1,0 +1,14 @@
+int belowThresholdOnRow(int data[][NUMCOLS], int rowIndex, int threshold) {
+	int index;
+	int count = 0;
+
+	for (index = 0; index < NUMCOLS; index++) {
+		
+		if (threshold < data[rowIndex][index]) {
+			count++;
+		}
+
+	}
+
+	return count;
+}
