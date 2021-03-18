@@ -1,0 +1,37 @@
+/*
+* Purpose: Use break statements to exit the loops early if the element is found.
+*/
+
+int search(int value, int array[NUM_ROWS][NUM_COLS]) {
+	int row;
+	int column;
+	int found = FALSE;
+
+	for (row = 0; row < NUM_ROWS; row++) {
+
+		for (column = 0; column < NUM_COLS; column++) {
+			if (array[row][column] == value) {
+				found = TRUE;
+				break;
+			}
+		}
+		/* Break from outer loop too */
+		if (array[row][column] == value) {
+			break;
+		}
+	}
+	return found;
+}
+
+
+
+/*
+* Purpose: Convert the above loop to an equivalent while 
+           loop that does not use a break statement.
+*/
+
+int i = 1, sum = 0;
+while (i <= 5) {
+	sum += i;
+	i++;
+}
