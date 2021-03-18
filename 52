@@ -1,0 +1,40 @@
+/*
+* Purpose: Use a return statement to immediately return TRUE if the element is found.
+*/
+
+int search(int value, int array[NUM_ROWS][NUM_COLS]) {
+	int row;
+	int column;
+
+	for (row = 0; row < NUM_ROWS; row++) {
+
+		for (column = 0; column < NUM_COLS; column++) {
+			if (array[row][column] == value) {
+				return TRUE;
+			}
+		}
+	}
+	return FALSE;
+}
+
+
+
+/*
+* Purpose: Implement the search function without the use of break or return statements.
+*/
+
+int search(int value, int array[NUM_ROWS][NUM_COLS]) {
+	int row;
+	int column;
+	int result = FALSE;
+
+	for (row = 0; row < NUM_ROWS && result != TRUE ; row++) {
+
+		for (column = 0; column < NUM_COLS && result != TRUE; column++) {
+			if (array[row][column] == value) {
+				result = TRUE;
+			}
+		}
+	}
+	return result; 
+}
