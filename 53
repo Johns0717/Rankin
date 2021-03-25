@@ -1,0 +1,95 @@
+/*
+ * Purpose: Include the appropriate header files, and define symbolic constants for any status values
+ * (e.g. true, false, on, off) and channel numbers.
+ */
+
+#define _CRT_SECURE_NO_WARNINGS
+
+ /* include headers */
+#include <stdio.h>
+#include <stdlib.h>
+#include <DAQlib.h>
+
+ /* simulator setup number */
+#define LED_SIMULATOR 1
+
+/* status constants */
+#define ON 1
+#define OFF 0
+#define TRUE 1
+#define FALSE 0
+
+/* I/O channels */
+#define SWITCH0 0
+#define SWITCH1 1
+#define LED0 0
+#define LED1 1
+#define LED2 2
+
+/* end */
+
+
+void controlLEDs(void)
+{
+	int switch0; /* Variable declared  */
+	int switch1;
+	
+	switch0 = digitalRead(SWITCH0);  /* Read from the switch and send to LED next */
+	switch1 = digitalRead(SWITCH1);
+
+	/* Different situation with different LED on */
+	if (switch0 == OFF && switch1 == OFF) {
+		digitalWrite(LED0, OFF);
+		digitalWrite(LED1, OFF);
+		digitalWrite(LED2, OFF);
+	}
+	else if (switch0 == ON && switch1 == OFF) {
+		digitalWrite(LED0, ON);
+		digitalWrite(LED1, OFF);
+		digitalWrite(LED2, OFF);
+	}
+	else if (switch0 == OFF && switch1 == ON) {
+		digitalWrite(LED0, OFF);
+		digitalWrite(LED1, ON);
+		digitalWrite(LED2, OFF);
+	}
+	else {
+		digitalWrite(LED0, OFF);
+		digitalWrite(LED1, OFF);
+		digitalWrite(LED2, ON);
+	}
+}
+
+
+
+void controlLEDsLoop(void)
+{
+	/* While loop which make the operation start */
+	while (continueSuperLoop() == TRUE) {
+		/* The LEDs from E2b which apply here as reference */
+		controlLEDs();
+	}
+}
+
+
+/* main function */
+int main(void)
+{
+	/* configuration number */
+	int setupNum = LED_SIMULATOR;
+
+	/* prompt for configuration (optional) */
+	printf("Enter the setup number for DAQ (0 for the device or 1 for the simulator): ");
+	scanf("%d", &setupNum);
+
+	/* initialize DAQ and call control loop */
+	if (setupDAQ(setupNum) == TRUE) {
+		controlLEDsLoop();
+	}
+	else {
+		printf("ERROR: Cannot initialize DAQ\n");
+	}
+
+	system("PAUSE");
+	return 0;
+}
