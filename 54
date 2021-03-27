@@ -1,0 +1,89 @@
+
+
+void fillGradient(char gradientmatrix[][NUMCOLS], int numrows) {
+  /* Complete your implementation here. Add comments to explain your logic. */
+  
+  int index_x, index_y;
+  double divider;
+  double colorNum;
+  
+  divider = 10.0/((double)NUMCOLS + (double)NUMROWS);
+  
+  for(index_y = 0; index_y < NUMCOLS; index_y++){
+      
+      for(index_x=0; index_x < numrows; index_x++){
+          
+          colorNum = 6.0 - ((double)index_x - (double)index_y)*divider;
+          
+          if ( colorNum>= 1 && colorNum < 2){
+              
+              gradientmatrix[index_y][index_x] = '@';
+              
+          }
+          
+          else if ( colorNum>= 2 && colorNum < 3){
+              
+              gradientmatrix[index_y][index_x] = '8';
+              
+          }
+          
+          else if ( colorNum>= 3 && colorNum < 4){
+              
+              gradientmatrix[index_y][index_x] = '#';
+              
+          }
+          
+          else if ( colorNum>= 4 && colorNum < 5){
+              
+              gradientmatrix[index_y][index_x] = 'X';
+              
+          }
+          
+          else if ( colorNum>= 5 && colorNum < 6){
+              
+              gradientmatrix[index_y][index_x] = 'o';
+              
+          }
+          
+          else if ( colorNum>= 6 && colorNum < 7){
+              
+              gradientmatrix[index_y][index_x] = 'i';
+              
+          }
+          
+          else if ( colorNum>= 7 && colorNum < 8){
+              
+              gradientmatrix[index_y][index_x] = 'c';
+              
+          }
+          
+          else if ( colorNum>= 8 && colorNum < 9){
+              
+              gradientmatrix[index_y][index_x] = '+';
+              
+          }
+          
+          else if ( colorNum>= 9 && colorNum < 10){
+              
+              gradientmatrix[index_y][index_x] = ':';
+              
+          }
+          
+          else if ( colorNum>= 10 && colorNum < 11){
+              
+              gradientmatrix[index_y][index_x] = '.';
+              
+          }
+          
+          else {
+              
+              gradientmatrix[index_y][index_x] = ' ';
+              
+          }
+          
+      }
+      
+      
+  }
+  
+}
