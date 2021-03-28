@@ -1,0 +1,25 @@
+/*
+ * Purpose: Tis function should print at most 8 digits of number, one digit per line, starting
+with the least-significant one. If the number has more than 8 digits, the function should
+simply ignore everything after the 8th digit.
+ */
+
+#define _CRT_SECURE_NO_WARNINGS
+
+void printDigits(int number)
+{
+	/* store next digit and position within number */
+	int data = 0;
+	int index = 0;
+
+	while (number != 0 && index < 8) {
+		/* extract right-most digit */
+		data = number % 10;
+
+		/* shift digits */
+		number = number / 10;
+
+		printf("%d\n", data);
+		index++;
+	}
+}
