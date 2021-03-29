@@ -1,0 +1,85 @@
+#define SPACE_CHAR 0
+#define _CRT_SECURE_NO_WARNINGS
+
+/* headers */
+#include <stdio.h>
+#include <stdlib.h>
+#include <DAQlib.h>
+#define TRUE 1
+#define FALSE 0
+
+void writeNumberLoop(void);
+void writeDigit(int digit, int position);
+void writeNumber(int number);
+
+
+/* main Function */
+int main(void)
+{
+	/* configuration number */
+	int setupNum = 0;
+	/* prompt user for DAQ configuration */
+	printf("Enter setup number (0 for the device or 4 for the simulator): ");
+	scanf("%d", &setupNum);
+	/* initialize DAQ */
+	if (setupDAQ(setupNum) == TRUE) {
+		writeNumberLoop();
+	}
+	else {
+		printf("ERROR: Cannot initialize system\n");
+	}
+	system("PAUSE");
+	return 0;
+}
+
+void writeNumberLoop(void) {
+
+	while (continueSuperLoop()) {
+		int num = 0;
+
+		printf("Enter an integer (negative to terminate): ");
+		scanf("%d", &num);
+		/* exit loop if its negative */
+		if (num < 0) {
+			break;
+		}
+
+		writeNumber(num);
+	}
+}
+
+
+void writeDigit(int digit, int position){
+
+	static const int DIGITS_TABLE[10] = { 252, 96, 218, 242, 102, 182, 190, 224, 254, 246 };
+
+	if (digit >= 0 && digit <= 9) {
+		displayWrite(DIGITS_TABLE[digit], position);
+	}
+
+}
+
+void writeNumber(int number){
+		/* store next digit and position within number */
+		int data = 0;
+		int index = 0;
+
+		while (number != 0 && index < 8) {
+			/* extract right-most digit */
+			data = number % 10;
+
+			/* shift digits */
+			number = number / 10;
+
+			writeDigit(data, index);
+
+			index++;
+		}
+
+	/* turn off any displays not used above */
+	while (index < 8) {
+		displayWrite(SPACE_CHAR, index);
+		index++;
+	}
+}
+
