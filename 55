@@ -23,3 +23,35 @@ void printDigits(int number)
 		index++;
 	}
 }
+
+
+/*
+ * Purpose: To write a non-negative integer value to the eight 7-segment LED displays of the DAQ
+module
+ */
+/* space character for clearing displays */
+#define SPACE_CHAR 0
+
+void writeNumber(int number){
+		/* store next digit and position within number */
+		int data = 0;
+		int index = 0;
+
+		while (number != 0 && index < 8) {
+			/* extract right-most digit */
+			data = number % 10;
+
+			/* shift digits */
+			number = number / 10;
+
+			printf("%d\n", data);
+			index++;
+		}
+
+	/* turn off any displays not used above */
+	while (index < 8) {
+		displayWrite(SPACE_CHAR, index);
+		index++;
+	}
+}
+
