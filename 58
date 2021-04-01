@@ -1,0 +1,69 @@
+/*
+ *   Author: Rankin Sun
+ *   Student Number: 53418265
+ *   Lab Section: L2O
+ *   Date: March 31, 2021
+ *   Purpose: *Modify the rotateLEDs() function above so that instead of sleeping for one second, 
+ it sleeps for 10ms one hundred times (for a total of 1 s), checking the reset button each iteration.
+ */
+#define _CRT_SECURE_NO_WARNINGS
+
+ /* rotateLEDs.c
+ * Rotates a lighted LED to the right, wrapping around, with a reset button. */
+#include <DAQlib.h>
+#include <Windows.h>
+#include <stdio.h>
+
+ /* symbolic constants */
+#define SIMULATOR 2
+#define ON 1
+#define OFF 0
+#define RESET 0
+#define LED0 0
+#define NUM_LEDS 6
+#define ONE_SECOND 1000
+
+/* function prototypes */
+void rotateLEDs(void);
+
+/* main function */
+int main(void)
+{
+	/* initialize simulator and run control loop */
+	if (setupDAQ(SIMULATOR)) {
+		rotateLEDs();
+	}
+	else {
+		printf("Cannot initialize the DAQ\n");
+	}
+	return 0;
+}
+
+void rotateLEDs(void)
+{
+	int led = 0; /* initialize LED index */
+
+	while (continueSuperLoop()) {
+		int button0 = OFF;
+		int index;
+		/* turn on/off LEDs */
+
+		for (index = 0; index < NUM_LEDS; index++) {
+
+			/* only turn on LED corresponding to 'led' */
+			digitalWrite(LED0 + index, index == led);;
+		}
+		led = (led + 1) % NUM_LEDS;
+
+		for (index = 0; index < 100; index++) {
+			/* check reset button */
+			if (digitalRead(button0) == ON) {
+				led = 0;
+				break;
+			}
+
+			Sleep(ONE_SECOND / 100);
+		}
+	}
+
+}
