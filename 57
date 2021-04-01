@@ -1,0 +1,66 @@
+/*  
+* Purpose: *starts by turning on LED0
+              *once every second, shifts the LED to the right, wrapping around if necessary (e.g.
+              after one second only LED1 is on, after 2 seconds only LED2 is on, etc.)
+              *if RESET is pressed, restarts the cycle, turning LED0 on and all others off
+ */
+#define _CRT_SECURE_NO_WARNINGS
+
+ /* rotateLEDs.c
+ * Rotates a lighted LED to the right, wrapping around, with a reset button. */
+#include <DAQlib.h>
+#include <Windows.h>
+#include <stdio.h>
+
+ /* symbolic constants */
+#define SIMULATOR 2
+#define ON 1
+#define OFF 0
+#define RESET 0
+#define LED0 0
+#define NUM_LEDS 6
+#define ONE_SECOND 1000
+
+/* function prototypes */
+void rotateLEDs(void);
+
+/* main function */
+int main(void)
+{
+	/* initialize simulator and run control loop */
+	if (setupDAQ(SIMULATOR)) {
+		rotateLEDs();
+	}
+	else {
+		printf("Cannot initialize the DAQ\n");
+	}
+	return 0;
+}
+
+void rotateLEDs(void)
+{
+	int led = 0; /* initialize LED index */
+
+	while (continueSuperLoop()) {
+		int button0 = OFF;
+		int index;
+		/* turn on/off LEDs */
+
+		for (index = 0; index < NUM_LEDS; index++) {
+			/* only turn on LED corresponding to 'led' */
+			digitalWrite(index, ON);
+			Sleep(ONE_SECOND);
+			digitalWrite(index, OFF);
+
+			/* check reset button */
+			if (digitalRead(button0) == ON) {
+				index = 0;
+			}
+
+			if (index > NUM_LEDS) {
+				index = 0;
+			}
+
+		}
+	}
+}
