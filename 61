@@ -1,0 +1,131 @@
+/*
+* Purpose:You will use the DAQ simulator with simulator view number 4 that contains 
+        two toggle switches and 8 LED displays that are arranged in a row. You are to write 
+        a program in C that implements a simple counter that is controlled by one of the toggle 
+        switches and displays the counter value on the LED screen.
+*/
+#define _CRT_SECURE_NO_WARNINGS   
+
+#include <stdio.h>    
+#include <stdlib.h>  
+#include <Windows.h>    
+
+#include <DAQlib.h>
+
+#define TRUE  1
+#define FALSE 0
+
+/* The input channels for the two switches */
+#define RUN_SWITCH   0
+
+/* The states of the switches */
+#define SWITCH_ON  1
+#define SWITCH_OFF 0
+
+/* Number of LED displays in the LED screen */
+#define NUM_DISPLAYS 8
+
+/* Value to write to the LED display to turn it off (space) */
+#define SPACE_CHAR 0
+
+/* 1 second = 1000 miliseconds for the delay */
+#define DELAY_TIME 1000
+
+/* function prototypes for all the functions implemented here */
+void runCounter(int number1,int number2);
+void writeNumber(int number);
+void writeDigit(int digit, int position);
+
+
+int main(void)
+{
+	int setupNum;
+	int number1;
+	int number2;
+
+	printf("Enter configuration type (0 for the device or 4 for the simulator): ");
+	scanf("%d", &setupNum);
+
+	if (setupDAQ(setupNum) == TRUE) {
+
+		printf("Enter the start value:\n");
+		scanf("%d", &number1);
+		printf("Enter the stop value:\n");
+		scanf("%d", &number2);
+
+		runCounter(number1,number2);
+	}
+	else {
+		printf("ERROR: Cannot initialize system\n");
+	}
+
+	system("PAUSE");
+	return 0;
+}
+
+/* Implements the counter logic. */
+/* Read the two switches and act accordingly. */
+void runCounter(int number1, int number2) {
+	int studentnumberlast_2 = 6;
+	int studentnumberlast_1 = 5;
+	int increment;
+
+	increment = ((studentnumberlast_2 + studentnumberlast_1) % 3) + 2;
+
+	while (continueSuperLoop() == TRUE) {
+		int count = number1;
+		int endvalue = number2;
+
+		writeNumber(number1);
+		Sleep(increment*DELAY_TIME);
+
+		if (digitalRead(RUN_SWITCH) == SWITCH_ON) {
+			while (count < endvalue) {
+				count += increment;
+				if (count >= endvalue) {
+					writeNumber(endvalue);
+				}
+				else writeNumber(count);
+				Sleep(increment*DELAY_TIME);
+			}
+		}
+		else if (digitalRead(RUN_SWITCH) == SWITCH_ON) {
+			writeNumber(count);
+		}
+	}
+}
+
+
+void writeDigit(int digit, int position) {
+
+	static const int DIGITS_TABLE[10] = { 252, 96, 218, 242, 102, 182, 190, 224, 254, 246 };
+
+	if (digit >= 0 && digit <= 9) {
+		displayWrite(DIGITS_TABLE[digit], position);
+	}
+
+}
+
+void writeNumber(int number) {
+	/* store next digit and position within number */
+	int data = 0;
+	int index = 0;
+
+	while (number != 0 && index < 8) {
+		/* extract right-most digit */
+		data = number % 10;
+
+		/* shift digits */
+		number = number / 10;
+
+		writeDigit(data, index);
+
+		index++;
+	}
+
+	/* turn off any displays not used above */
+	while (index < 8) {
+		displayWrite(SPACE_CHAR, index);
+		index++;
+	}
+}
