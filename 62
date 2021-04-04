@@ -1,0 +1,102 @@
+/*
+ * Purpose:   write a function double convertToLux(double voltage) that converts a voltage value to illumination in units of lux
+ */
+#define _CRT_SECURE_NO_WARNINGS
+
+#define sensor 1
+#define NUM_DISPLAYS 8
+#define SPACE_CHAR 0
+#define setupmuner 5
+
+#include <stdio.h>
+#include <math.h>
+#include <DAQlib.h>
+
+double convertTolux(double voltage);
+double readIllumination(void);
+void lightControlLoop(void);
+void writeNumber(int number);
+void writeDigit(int digit, int position);
+
+int main(void) {
+	if (setupDAQ(setupmuner)) {
+		lightControlLoop();
+	}
+	else {
+		printf("Error\n");
+	}
+	return 0;
+}
+
+
+double convertTolux(double voltage) {
+	double var_M = (-1.4);
+	double var_B = 16.34;
+	double var_Vref = 5;
+	double var_Rd = 10000;
+	double resistance;
+	double lux;
+
+	resistance = ((var_Vref - voltage) / voltage)*var_Rd;
+	lux = exp(var_M*log(resistance) + var_B);
+	return lux;
+}
+
+
+double readIllumination(void) {
+	double voltage = analogRead(sensor);
+	double lux = convertTolux(voltage);
+	return lux;
+}
+
+
+void lightControlLoop(void) {
+	while (continueSuperLoop()) {
+		double lux;
+		int rounduplux;
+
+		lux = readIllumination();
+		rounduplux = (int)round(lux);
+		writeNumber(rounduplux);
+	}
+}
+
+
+void writeNumber(int number) {
+	/* store next digit and position within number */
+	int data = 0;
+	int index = 0;
+
+	while (number != 0 && index < 8) {
+		/* extract right-most digit */
+		data = number % 10;
+
+		/* shift digits */
+		number = number / 10;
+
+		writeDigit(data, index);
+
+		index++;
+	}
+
+	/* turn off any displays not used above */
+	while (index < 8) {
+		displayWrite(SPACE_CHAR, index);
+		index++;
+	}
+}
+
+
+void writeDigit(int digit, int position)
+{
+	/*
+	* const variables cannot be changed during program execution
+	* i.e. they are constants
+	*/
+	static const int DIGITS_TABLE[10] = {
+	252, 96, 218, 242, 102, 182, 190, 224, 254, 246 };
+	/* only try to write a valid digit */
+	if (digit >= 0 && digit <= 9) {
+		displayWrite(DIGITS_TABLE[digit], position);
+	}
+}
