@@ -1,0 +1,36 @@
+int stringLength(char str[]) {
+	int length;
+
+	for (length = 0; str[length] != '\0'; length++) {
+	}
+
+	return length;
+}
+
+
+
+void stringCopy(char dest[], char src[]) {
+	int length;
+
+	/*Length begin in 0 and copy data in string in src to dest one by one*/
+	for (length = 0; src[length] != '\0'; length++) {
+		dest[length] = src[length];
+	}
+
+	/* End with null*/
+	dest[length] = '\0';
+}
+
+
+
+void stringAppend(char dest[], char src[]) {
+	int index;
+	int lengthdest = stringLength(dest);
+
+	for (index = 0; src[index] != '\0'; index++) {
+		dest[lengthdest + index] = src[index]; /* This will add the src string to dest string */
+	}
+	/* End with null*/
+	dest[lengthdest+index] = '\0';
+
+}
