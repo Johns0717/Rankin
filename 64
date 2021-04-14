@@ -1,0 +1,201 @@
+/*
+ * Author:           Rankin Sun
+ * Purpose:  Make a Simon Game by DAQ for play
+ */
+#define _CRT_SECURE_NO_WARNINGS
+
+ /* Header files */
+#include <stdio.h>
+#include <stdlib.h>
+#include <DAQlib.h>
+#include <Windows.h>
+#include <time.h>
+
+/* Input channel */
+#define pushbutton0 0
+#define pushbutton1 1
+#define pushbutton2 2
+#define pushbutton3 3
+
+/* LED states */
+#define LED0G 0
+#define LED1R 1
+#define LED2Y 2
+#define LED3B 3
+
+/* Other variable */
+#define setupnumber 6
+
+#define True 1
+#define False 0
+#define ON 1
+#define OFF 0
+#define Onesecond 1000
+
+/* Function prototype */
+int randInt(int lower, int upper);
+void generateSequence(int length, int data[]);
+void flashtheLED(int lightnumber);
+void ChangeStatusOfLED(int length, int data[]);
+int getplayerinput(void);
+void storage(int length, int playerinput[]);
+void ShowResult(int light);
+void Simon(void);
+
+int main(void)
+{
+	if (setupDAQ(setupnumber)) {
+		Simongame();
+	}
+	else {
+		printf("Fail to initialize the system.\n");
+	}
+
+	system("PAUSE");
+	return 0;
+}
+
+/* Simon Game function */
+void Simon(void) {
+	int data[5];
+	int length = 5;
+	int playerinput[5];
+	int index;
+	int count;
+	int N;
+
+	while (continueSuperLoop()) {
+		int N = 1; /* Start the number 1 */
+		srand((unsigned)time(NULL));
+		generateSequence(length, data);
+
+		ChangeStatusOfLED(1, data);
+		storage(1, playerinput);
+
+		while (N <= length) {
+			count = 0;
+			for (index = 0; index < N; index++) {
+				/* Check the input is correct or not */
+				if (data[index] == playerinput[index]) {
+					count++;
+				}
+
+			}
+			if (count == N) {
+				if (N = length) {
+					ShowResult(LED0G); /* If its reach the end of the sequence, flash green light 3 time to win  */
+					printf(" You Win! \n");
+					break;
+				}
+				else {
+					count++;
+					N++;
+					ChangeStatusOfLED(N, data);
+					storage(N, playerinput);  /* Go to the next sequence if not reach the end of the game. No break in here */
+				}
+			}
+			else {
+				ShowResult(LED1R); /* Player loss */
+				printf(" You loss! \n ");
+				break;
+			}
+
+		}
+
+	}
+
+	system("PAUSE");
+
+}
+
+/* Generate a number from 0 to 3*/
+int randInt(int lower, int upper) {
+	int number;
+	number = rand() % upper - lower + 1;
+	return number;
+}
+
+/* Generate a series a random number */
+void generateSequence(int length, int data[]){
+	int index;
+	for (index = 0; index < length, index++) {
+		data[index] = randInt(0, 3);
+	}
+
+}
+
+/*Turn on and off the light*/
+void flashtheLED(int lightnumber) {
+	digitalWrite(lightnumber, ON);
+	Sleep(Onesecond);
+	digitalWrite(lightnumber, OFF);
+	Sleep(Onesecond);
+}
+
+/*Turn the corresponding lgiht on and off in a series */
+void ChangeStatusOfLED(int length, int data[]) {
+	int count;
+	for (count = 0; count < length; count++) {
+		flashtheLED(data[count]);
+	}
+
+}
+
+/*Get what user push for the bottom */
+int getplayerinput(void) {
+		int userInput = 0;
+		/*Check if the user whants to continue playing the game*/
+		while (continueSuperLoop() == TRUE) {
+			if (digitalRead(pushbutton0) == ON) {
+				digitalWrite(LED0G, ON);
+				Sleep(Onesecond);
+				digitalWrite(LED0G, OFF);
+				userInput = pushbutton0;
+				break;
+			}
+			else if (digitalRead(pushbutton1) == ON) {
+				digitalWrite(LED1R, ON);
+				Sleep(Onesecond);
+				digitalWrite(LED1R, OFF);
+				userInput = pushbutton1;
+				break;
+			}
+			else if (digitalRead(pushbutton2) == ON) {
+				digitalWrite(LED2Y, ON);
+				Sleep(Onesecond);
+				digitalWrite(LED2Y, OFF);
+				userInput = pushbutton2;
+				break;
+			}
+			else if (digitalRead(pushbutton3) == ON) {
+				digitalWrite(LED3B, ON);
+				Sleep(Onesecond);
+				digitalWrite(LED3B, OFF);
+				userInput = pushbutton3;
+				break;
+			}
+		}
+		return userInput;
+}
+
+/* Store player's answer  */
+void storage(int length, int playerinput[]) {
+	int size;
+	for (size = 0; size < length; size++) {
+		playerinput[size] = getplayerinput();
+	}
+
+}
+
+/* Flash the red light if lose,green light if win */
+void ShowResult(int light) {
+	int index;
+
+	for (int index = 0; index < 3; index++) {
+		digitalWrite(light, ON);
+		Sleep(Onesecond);
+		digitalWrite(light, OFF);
+		Sleep(Onesecond);
+	}
+
+}
