@@ -40,7 +40,7 @@ void ChangeStatusOfLED(int length, int data[]);
 int getplayerinput(void);
 void storage(int length, int playerinput[]);
 void ShowResult(int light);
-void Simon(void);
+void Simongame(void);
 
 int main(void)
 {
@@ -118,7 +118,7 @@ int randInt(int lower, int upper) {
 /* Generate a series a random number */
 void generateSequence(int length, int data[]){
 	int index;
-	for (index = 0; index < length, index++) {
+	for (index = 0; index < length; index++) {
 		data[index] = randInt(0, 3);
 	}
 
