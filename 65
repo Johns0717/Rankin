@@ -1,0 +1,71 @@
+ /*
+  *  Enciphers a plaintext string using a provided keyword and a Vigenere table.
+  *  PRE:  plaintext is a null-terminated string containing only upper-case English characters.
+  *  PRE:  ciphertext has been initialized to all null characters.
+  *  PRE:  keyword is a a null-terminated string containing only upper-case English characters.
+  *  POST: ciphertext is a null-terminated string containing the enciphered text
+  *        as upper-case English characters.
+  *  PARAM: plaintext - input (unencrypted) message
+  *  PARAM: ciphertext - output (encrypted) message
+  *  PARAM: textlength - number of non-null characters in plaintext,
+  *                      and ciphertext after execution
+  *  PARAM: keywordlength - number of non-null characters in keyword
+  *  PARAM: lookuptable - 26x26 Vigenere table. May be seeded with any character in position [0][0].
+  */
+void encipher(char plaintext[], char ciphertext[], int textlength, char keyword[], int keywordlength, 
+ char lookuptable[ALPHASIZE][ALPHASIZE]) {
+ // array to hold repetitions of keyword
+ char keywordreps[BUFFERSIZE];
+ int a = 0;
+
+ for (int i = 0; i < BUFFERSIZE; i++)
+  keywordreps[i] = '\0';
+
+ /* Complete your implementation here. Add comments to explain your logic. */
+ 
+ // First make keyword in same length as plain text
+ if (keywordlength < textlength) {
+  int index = 0;
+  a = 1;
+
+  while (index < textlength) {
+   //This will result like abc become abcabcab if textlength is 8
+   keywordreps[index] = keyword[index % keywordlength];
+   index++;
+  }
+ }
+
+
+ //find corresponding value in table for ciphertext
+ int num;
+ int x;
+ int y;
+ int j;
+ int k;
+ for (num = 0; num < textlength; num++) {
+  
+
+  if (a == 1) {
+   x = keywordreps[num];
+  }
+  else {
+   x = keyword[num];
+  }
+
+  y = plaintext[num];
+  for(j =0; j<26;j++){
+      if(lookuptable[0][j]==y){
+          y=j;
+          break;
+      }
+  }
+  for(k =0; k<26;k++){
+      if(lookuptable[k][0]==x){
+          x=k;
+          break;
+      }
+  }
+  // find corresponding a b to  ciphertext
+  ciphertext[num] = lookuptable[x][y];
+ 
+ }
